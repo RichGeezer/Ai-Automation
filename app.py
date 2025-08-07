@@ -13,8 +13,8 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 st.title("YouTube Video Multi-Clipper AI")
 
 youtube_url = st.text_input("Enter YouTube URL")
-num_clips = st.number_input("Number of clips to generate", min_value=1, max_value=10, value=3)
 clip_length = st.number_input("Clip length (seconds)", min_value=30, max_value=180, value=90)
+generate_max = st.checkbox("Generate maximum clips based on video length")
 
 def download_youtube_video(url, output_path="video.mp4"):
     ydl_opts = {
@@ -84,6 +84,15 @@ if st.button("Generate Clips"):
             except Exception as e:
                 st.error(f"Download failed: {e}")
                 st.stop()
+
+        video = VideoFileClip(video_path)
+        video_duration = video.duration
+
+        if generate_max:
+            num_clips = int(video_duration // clip_length)
+            st.write(f"Generating maximum clips: {num_clips}")
+        else:
+            num_clips = st.number_input("Number of clips to generate", min_value=1, max_value=30, value=3)
 
         with st.spinner("Transcribing audio..."):
             transcript_text = transcribe_audio(video_path)
