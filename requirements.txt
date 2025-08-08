@@ -5,3 +5,4 @@ whisper
 moviepy==1.0.3
 python-dotenv
 torch
+ffmpeg
