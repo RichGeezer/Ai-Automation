@@ -1,3 +1,6 @@
+import subprocess
+print(subprocess.run(["ffmpeg", "-version"], capture_output=True).stdout.decode())
+
 import os
 import streamlit as st
 from moviepy.editor import VideoFileClip
