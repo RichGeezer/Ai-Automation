@@ -2,7 +2,7 @@ import os
 import streamlit as st
 from moviepy.editor import VideoFileClip
 import whisper
-import yt-dlp
+import yt_dlp
 import openai
 from dotenv import load_dotenv
 import json
